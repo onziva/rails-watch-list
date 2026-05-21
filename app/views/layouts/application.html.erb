@@ -10,17 +10,6 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="fa-solid fa-clapperboard me-2"></i>Watch List
-        <% end %>
-        <%= link_to new_list_path, class: "btn btn-outline-light btn-sm" do %>
-          <i class="fa-solid fa-plus me-1"></i> Nouvelle liste
-        <% end %>
-      </div>
-    </nav>
-
     <%= yield :hero %>
 
     <div class="container py-4">
