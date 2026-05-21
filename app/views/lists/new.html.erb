@@ -1,12 +1,28 @@
-<h1>Nouvelle liste</h1>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <%= link_to lists_path, class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fa-solid fa-arrow-left"></i>
+      <% end %>
+      <h1 class="mb-0">Nouvelle liste</h1>
+    </div>
 
-<%= form_with model: @list do |f| %>
-  <% @list.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
-  <% end %>
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <%= form_with model: @list do |f| %>
+          <% @list.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+          <% end %>
 
-  <%= f.label :name, "Nom" %>
-  <%= f.text_field :name %>
+          <div class="mb-4">
+            <%= f.label :name, "Nom de la liste", class: "form-label fw-semibold" %>
+            <%= f.text_field :name, class: "form-control",
+                placeholder: "Ex: À voir ce soir..." %>
+          </div>
 
-  <%= f.submit "Créer" %>
-<% end %>
+          <%= f.submit "Créer la liste", class: "btn btn-primary w-100" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

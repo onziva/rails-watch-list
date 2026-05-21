@@ -1,16 +1,54 @@
-<%= link_to "← Retour", lists_path %>
-
-<h1><%= @list.name %></h1>
-
-<%= link_to "Ajouter un film", new_list_bookmark_path(@list) %>
-
-<% @list.bookmarks.each do |bookmark| %>
-  <div>
-    <img src="<%= bookmark.movie.poster_url %>" alt="<%= bookmark.movie.title %>">
-    <p><%= bookmark.movie.title %></p>
-    <% if bookmark.comment.present? %>
-      <p><%= bookmark.comment %></p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex align-items-center gap-3">
+    <%= link_to lists_path, class: "btn btn-outline-secondary btn-sm" do %>
+      <i class="fa-solid fa-arrow-left"></i>
     <% end %>
-    <%= button_to "Supprimer", bookmark_path(bookmark), method: :delete, data: { turbo_confirm: "Supprimer ?" } %>
+    <h1 class="mb-0"><%= @list.name %></h1>
+  </div>
+  <%= link_to new_list_bookmark_path(@list), class: "btn btn-primary" do %>
+    <i class="fa-solid fa-plus me-1"></i> Ajouter un film
+  <% end %>
+</div>
+
+<% if @list.bookmarks.empty? %>
+  <div class="text-center text-muted py-5">
+    <i class="fa-solid fa-film fa-3x mb-3 d-block"></i>
+    <p>Aucun film dans cette liste pour le moment.</p>
+    <%= link_to new_list_bookmark_path(@list), class: "btn btn-primary" do %>
+      <i class="fa-solid fa-plus me-1"></i> Ajouter un film
+    <% end %>
+  </div>
+<% else %>
+  <div class="row g-4">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+        <div class="card movie-card h-100 shadow-sm">
+          <% if bookmark.movie.poster_url.present? %>
+            <img src="<%= bookmark.movie.poster_url %>"
+                 class="card-img-top movie-poster"
+                 alt="<%= bookmark.movie.title %>">
+          <% end %>
+          <div class="card-body p-2">
+            <h6 class="card-title mb-1"><%= bookmark.movie.title %></h6>
+            <% if bookmark.movie.rating.present? %>
+              <small class="text-warning">
+                <i class="fa-solid fa-star"></i> <%= bookmark.movie.rating.round(1) %>
+              </small>
+            <% end %>
+            <% if bookmark.comment.present? %>
+              <p class="card-text mt-1 small text-muted fst-italic"><%= bookmark.comment %></p>
+            <% end %>
+          </div>
+          <div class="card-footer p-2 text-end bg-transparent border-top-0">
+            <%= button_to bookmark_path(bookmark),
+                          method: :delete,
+                          data: { turbo_confirm: "Supprimer ce film de la liste ?" },
+                          class: "btn btn-outline-danger btn-sm" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

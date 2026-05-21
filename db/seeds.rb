@@ -1,6 +1,6 @@
 require "json"
 require "open-uri"
-
+""
 puts "Nettoyage de la base..."
 Bookmark.destroy_all
 List.destroy_all

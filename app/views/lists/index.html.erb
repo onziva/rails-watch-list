@@ -1,8 +1,47 @@
-<h1>Mes listes</h1>
-<%= link_to "Nouvelle liste", new_list_path %>
+<% content_for :hero do %>
+  <div class="hero-banner">
+    <div class="hero-overlay">
+      <div class="container hero-content">
+        <h1 class="hero-title"><i class="fa-solid fa-clapperboard me-3"></i>Watch List</h1>
+        <p class="hero-subtitle">Organisez vos films à regarder, retrouvez vos coups de cœur.</p>
+        <%= link_to new_list_path, class: "btn btn-light btn-lg hero-cta" do %>
+          <i class="fa-solid fa-plus me-2"></i>Créer une liste
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-<% @lists.each do |list| %>
-  <div>
-    <h2><%= link_to list.name, list_path(list) %></h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="mb-0"><i class="fa-solid fa-list me-2"></i>Mes listes</h1>
+</div>
+
+<% if @lists.empty? %>
+  <div class="text-center text-muted py-5">
+    <i class="fa-solid fa-clapperboard fa-3x mb-3 d-block"></i>
+    <p>Aucune liste pour le moment. Commencez par en créer une !</p>
+    <%= link_to new_list_path, class: "btn btn-primary" do %>
+      <i class="fa-solid fa-plus me-1"></i> Créer une liste
+    <% end %>
+  </div>
+<% else %>
+  <div class="row g-4">
+    <% @lists.each do |list| %>
+      <div class="col-md-4 col-sm-6">
+        <%= link_to list_path(list), class: "text-decoration-none" do %>
+          <div class="card list-card h-100 shadow-sm">
+            <div class="card-body d-flex align-items-center gap-3">
+              <i class="fa-solid fa-film fa-2x text-primary"></i>
+              <div>
+                <h5 class="card-title mb-1 text-dark"><%= list.name %></h5>
+                <small class="text-muted">
+                  <%= list.movies.count %> film<%= "s" if list.movies.count != 1 %>
+                </small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

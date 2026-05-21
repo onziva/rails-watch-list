@@ -1,17 +1,32 @@
-<%= link_to "← Retour", list_path(@list) %>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <%= link_to list_path(@list), class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fa-solid fa-arrow-left"></i>
+      <% end %>
+      <h1 class="mb-0">Ajouter un film</h1>
+    </div>
+    <p class="text-muted">Liste : <strong><%= @list.name %></strong></p>
 
-<h1>Ajouter un film à "<%= @list.name %>"</h1>
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <%= form_with model: [@list, @bookmark] do |f| %>
+          <div class="mb-3">
+            <%= f.label :movie_id, "Film", class: "form-label fw-semibold" %>
+            <%= f.collection_select :movie_id, Movie.all.order(:title), :id, :title,
+                { prompt: "Choisir un film..." },
+                { class: "form-select" } %>
+          </div>
 
-<%= form_with model: [@list, @bookmark] do |f| %>
-  <div>
-    <%= f.label :movie_id, "Film" %>
-    <%= f.collection_select :movie_id, Movie.all, :id, :title, { prompt: "Choisir un film" } %>
+          <div class="mb-4">
+            <%= f.label :comment, "Commentaire (optionnel)", class: "form-label fw-semibold" %>
+            <%= f.text_area :comment, class: "form-control", rows: 3,
+                placeholder: "Vos notes sur ce film..." %>
+          </div>
+
+          <%= f.submit "Ajouter à la liste", class: "btn btn-primary w-100" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :comment, "Commentaire (optionnel)" %>
-    <%= f.text_area :comment %>
-  </div>
-
-  <%= f.submit "Ajouter" %>
-<% end %>
+</div>
