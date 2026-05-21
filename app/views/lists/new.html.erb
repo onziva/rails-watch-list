@@ -1,0 +1,12 @@
+<h1>Nouvelle liste</h1>
+
+<%= form_with model: @list do |f| %>
+  <% @list.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+
+  <%= f.label :name, "Nom" %>
+  <%= f.text_field :name %>
+
+  <%= f.submit "Créer" %>
+<% end %>

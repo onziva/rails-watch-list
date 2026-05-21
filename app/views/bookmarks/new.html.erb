@@ -1,0 +1,17 @@
+<%= link_to "← Retour", list_path(@list) %>
+
+<h1>Ajouter un film à "<%= @list.name %>"</h1>
+
+<%= form_with model: [@list, @bookmark] do |f| %>
+  <div>
+    <%= f.label :movie_id, "Film" %>
+    <%= f.collection_select :movie_id, Movie.all, :id, :title, { prompt: "Choisir un film" } %>
+  </div>
+
+  <div>
+    <%= f.label :comment, "Commentaire (optionnel)" %>
+    <%= f.text_area :comment %>
+  </div>
+
+  <%= f.submit "Ajouter" %>
+<% end %>

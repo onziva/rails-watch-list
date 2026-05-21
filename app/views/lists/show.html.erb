@@ -1,0 +1,16 @@
+<%= link_to "← Retour", lists_path %>
+
+<h1><%= @list.name %></h1>
+
+<%= link_to "Ajouter un film", new_list_bookmark_path(@list) %>
+
+<% @list.bookmarks.each do |bookmark| %>
+  <div>
+    <img src="<%= bookmark.movie.poster_url %>" alt="<%= bookmark.movie.title %>">
+    <p><%= bookmark.movie.title %></p>
+    <% if bookmark.comment.present? %>
+      <p><%= bookmark.comment %></p>
+    <% end %>
+    <%= button_to "Supprimer", bookmark_path(bookmark), method: :delete, data: { turbo_confirm: "Supprimer ?" } %>
+  </div>
+<% end %>
