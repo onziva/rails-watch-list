@@ -9,15 +9,17 @@
 
     <div class="card shadow-sm">
       <div class="card-body p-4">
-        <%= form_with model: @list do |f| %>
+        <%= simple_form_for @list do |f| %>
           <% @list.errors.full_messages.each do |msg| %>
             <div class="alert alert-danger"><%= msg %></div>
           <% end %>
 
           <div class="mb-4">
-            <%= f.label :name, "Nom de la liste", class: "form-label fw-semibold" %>
-            <%= f.text_field :name, class: "form-control",
-                placeholder: "Ex: À voir ce soir..." %>
+            <%= f.input :name, label: "Nom de la liste", input_html: { class: "form-control", placeholder: "Ex: À voir ce soir..." } %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.input :photo, as: :file, label: "Photo", input_html: { class: "form-control" } %>
           </div>
 
           <%= f.submit "Créer la liste", class: "btn btn-primary w-100" %>
