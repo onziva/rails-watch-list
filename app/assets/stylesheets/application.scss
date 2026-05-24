@@ -1,1 +1,12 @@
+// Graphical variables
+@import "rails-stylesheets-master/config/fonts";
+@import "rails-stylesheets-master/config/colors";
+@import "rails-stylesheets-master/config/bootstrap_variables";
+
+// External libraries
 @import "bootstrap";
+@import "font-awesome";
+
+// Your CSS partials
+@import "rails-stylesheets-master/components/index";
+@import "rails-stylesheets-master/pages/index";
