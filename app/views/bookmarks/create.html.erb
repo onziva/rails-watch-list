@@ -1,9 +1,0 @@
-%= link_to "← Retour", list_path(@list) %>
-
-<h1>Ajouter un film à <%= @list.name %></h1>
-
-<%= simple_form_for [@list, @bookmark] do |f| %>
-  <%= f.association :movie, label: "Film" %>
-  <%= f.input :comment, label: "Commentaire (optionnel)" %>
-  <%= f.submit "Ajouter" %>
-<% end %>
